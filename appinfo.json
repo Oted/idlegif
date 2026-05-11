@@ -1,0 +1,13 @@
+{
+  "id": "org.webosbrew.idlegif",
+  "version": "0.1.0",
+  "type": "web",
+  "main": "index.html",
+  "title": "Idlegif",
+  "icon": "assets/idlegif80.png",
+  "largeIcon": "assets/idlegif130.png",
+  "vendor": "Oted",
+  "resolution": "1920x1080",
+  "iconColor": "#111111",
+  "appDescription": "GIF screensaver for rooted LG webOS TVs"
+}

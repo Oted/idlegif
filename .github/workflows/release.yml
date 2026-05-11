@@ -1,0 +1,53 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install ares-cli
+        run: npm install -g @webosose/ares-cli
+
+      - name: Build IPK
+        run: ares-package .
+
+      - name: Get version
+        id: version
+        run: echo "version=$(node -p "require('./appinfo.json').version")" >> $GITHUB_OUTPUT
+
+      - name: Generate manifest
+        run: |
+          IPK="org.webosbrew.idlegif_${{ steps.version.outputs.version }}_all.ipk"
+          SHA256=$(sha256sum "$IPK" | cut -d' ' -f1)
+          cat > org.webosbrew.idlegif.manifest.json <<EOF
+          {
+            "id": "org.webosbrew.idlegif",
+            "version": "${{ steps.version.outputs.version }}",
+            "type": "web",
+            "title": "Idlegif",
+            "appDescription": "GIF screensaver for rooted LG webOS TVs",
+            "iconUri": "https://github.com/Oted/idlegif/raw/main/idlegif.png",
+            "sourceUrl": "https://github.com/Oted/idlegif",
+            "ipkUrl": "https://github.com/Oted/idlegif/releases/download/${{ github.ref_name }}/${IPK}",
+            "ipkHash": { "sha256": "${SHA256}" }
+          }
+          EOF
+
+      - name: Create release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            org.webosbrew.idlegif_${{ steps.version.outputs.version }}_all.ipk
+            org.webosbrew.idlegif.manifest.json
+          generate_release_notes: true

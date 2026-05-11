@@ -1,0 +1,135 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: #111;
+  color: #eee;
+  font-family: sans-serif;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#app { width: 1000px; padding: 0 32px; }
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+#app h1   { font-size: 2rem; }
+#app .sub { color: #888; font-size: 0.9rem; margin-bottom: 28px; }
+
+/* ── GIPHY section ── */
+#giphy-section { margin-bottom: 24px; }
+
+.giphy-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.gif-grid {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.gif-card {
+  flex: 0 0 calc(50% - 8px);
+  background: #1e1e1e;
+  border-radius: 8px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  overflow: hidden;
+  outline: none;
+  transition: border-color 0.1s, transform 0.1s;
+}
+.gif-card:focus  { border-color: #fff; transform: scale(1.02); }
+.gif-card.active { border-color: #0071e3; }
+.gif-card img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  display: block;
+  background: #000;
+}
+.gif-card .info { padding: 10px 14px 12px; }
+.gif-card .info .title {
+  font-size: 0.8rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 3px;
+}
+.gif-card .info .dims { font-size: 0.75rem; color: #666; }
+.gif-card.loading     { opacity: 0.3; pointer-events: none; }
+.gif-card.placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #333;
+  font-size: 0.85rem;
+  min-height: 240px;
+}
+
+/* ── API key prompt ── */
+.key-prompt {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 24px 0;
+}
+.key-prompt input { flex: 1; }
+
+/* ── URL section ── */
+#url-section {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 24px;
+}
+#url-section input { flex: 1; }
+
+/* ── Shared input style ── */
+input[type="text"] {
+  padding: 14px;
+  background: #1e1e1e;
+  border: 2px solid transparent;
+  border-radius: 6px;
+  color: #eee;
+  font-size: 0.95rem;
+  outline: none;
+}
+input[type="text"]:focus { border-color: #fff; }
+
+/* ── Buttons ── */
+.actions { display: flex; gap: 12px; }
+button {
+  padding: 16px 32px;
+  border: 2px solid transparent;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  background: #333;
+  color: #eee;
+  outline: none;
+  transition: border-color 0.1s, transform 0.1s;
+  white-space: nowrap;
+}
+button.primary  { background: #0071e3; }
+button.success  { background: #1a6e1a; }
+button.danger   { background: #8b0000; }
+button:focus   { border-color: #fff; transform: scale(1.03); }
+button:disabled { opacity: 0.4; pointer-events: none; }
+
+/* ── Status ── */
+#status {
+  margin-top: 16px;
+  font-size: 0.9rem;
+  color: #aaa;
+  min-height: 1.4em;
+  white-space: pre-wrap;
+}
+#status.err { color: #f66; }
+#status.ok  { color: #6f6; }

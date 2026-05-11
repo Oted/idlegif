@@ -1,0 +1,7 @@
+*.ipk
+.env
+assets/screensaver.gif
+assets/screensaver.mp4
+assets/screensaver_sdr.mp4
+assets/icon.png
+assets/largeIcon.png
