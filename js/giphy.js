@@ -1,19 +1,53 @@
 // GiphyClient — model: API key storage and GIF search
 
 var QUERIES = [
+    // Cinemagraph — photo with single animated element, perfect screensaver format
+    "cinemagraph loop",
+    "cinemagraph nature loop",
+    "cinemagraph rain loop",
+    "cinemagraph forest loop",
+    "cinemagraph coffee steam loop",
+    "cinemagraph candle loop",
+    "cinemagraph waterfall loop",
+
+    // Slow / ink / fluid — very slow, hypnotic
+    "ink water loop",
+    "slow motion water loop",
+    "lava lamp loop",
+    "sacred geometry loop",
+    "mandala loop",
+
+    // Nature / atmospheric
+    "ocean waves loop",
+    "slow motion rain loop",
+    "fog forest loop",
+    "snow falling night loop",
+    "waterfall loop",
+    "time lapse clouds loop",
+
+    // Space / cosmic
+    "nebula space loop",
+    "galaxy stars loop",
+    "aurora borealis loop",
+    "northern lights loop",
+    "planet earth loop",
+
+    // Underwater — jellyfish only, specific enough to stay on topic
+    "jellyfish loop",
+    "deep sea loop",
+
+    // Cozy / ambient
+    "fireplace loop",
+
+    // Scenic / atmospheric cityscapes (no concerts/people)
+    "synthwave landscape loop",
+    "city skyline night loop",
+
+    // Pixel art (kept — reliable quality)
     "pixel art landscape night loop",
-    "pixel art rain city loop",
-    "pixel art forest loop",
-    "pixel art ocean wave loop",
-    "pixel art mountain loop",
     "pixel art space stars loop",
     "pixel art campfire loop",
-    "pixel art snow loop",
-    "pixel art cyberpunk night loop",
     "lofi pixel art loop",
-    "pixel art sunset loop",
-    "8bit landscape loop",
-    "pixel art ambient loop",
 ];
 
 function GiphyClient() {}
@@ -29,7 +63,7 @@ GiphyClient.prototype.saveApiKey = function(key) {
 GiphyClient.prototype._fetch = function() {
     var key    = this.getApiKey();
     var query  = QUERIES[Math.floor(Math.random() * QUERIES.length)];
-    var offset = Math.floor(Math.random() * 40);
+    var offset = Math.floor(Math.random() * 100);
     var url    = "https://api.giphy.com/v1/gifs/search"
         + "?api_key=" + encodeURIComponent(key)
         + "&q="       + encodeURIComponent(query)
