@@ -8,6 +8,12 @@ Tested on **webOS 9.2.1**. Requires a rooted TV via [Homebrew Channel](https://g
 
 ---
 
+## Screenshot
+
+![Idlegif app running on an LG webOS TV](assets/screenshot.png)
+
+---
+
 ## Installation
 
 Install via the Homebrew Channel app store, or sideload the `.ipk` from the [latest release](https://github.com/Oted/idlegif/releases/latest).
