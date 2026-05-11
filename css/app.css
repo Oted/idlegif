@@ -17,10 +17,17 @@ body {
   margin-bottom: 4px;
 }
 #app h1   { font-size: 2rem; }
-#app .sub { color: #888; font-size: 0.9rem; margin-bottom: 28px; }
+#app .sub { color: #888; font-size: 0.9rem; margin-bottom: 0; }
+
+/* ── Section dividers ── */
+#giphy-section, #url-section, .actions {
+  border-top: 1px solid #272727;
+  padding-top: 20px;
+  margin-top: 20px;
+}
 
 /* ── GIPHY section ── */
-#giphy-section { margin-bottom: 24px; }
+#giphy-section { margin-bottom: 0; }
 
 .giphy-row {
   display: flex;
@@ -76,20 +83,18 @@ body {
 /* ── API key prompt ── */
 .key-prompt {
   display: flex;
+  flex-direction: column;
   gap: 12px;
-  align-items: center;
-  padding: 24px 0;
 }
-.key-prompt input { flex: 1; }
+.key-prompt input { width: 100%; }
 
 /* ── URL section ── */
 #url-section {
   display: flex;
+  flex-direction: column;
   gap: 12px;
-  align-items: center;
-  margin-bottom: 24px;
 }
-#url-section input { flex: 1; }
+#url-section input { width: 100%; }
 
 /* ── Shared input style ── */
 input[type="text"] {

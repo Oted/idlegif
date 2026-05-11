@@ -93,7 +93,7 @@ App.prototype.downloadUrl = function(url) {
 
     this.webos.downloadAndApply(url.trim())
         .then(function()  { self.view.setStatus("Applied.", "ok"); })
-        .catch(function(e){ self.view.setStatus("Error: " + e, "err"); });
+        .catch(function(e){ self.view.setStatus("Error: Filed to download, is the URL available?", "err"); });
 };
 
 window.addEventListener("DOMContentLoaded", function() {

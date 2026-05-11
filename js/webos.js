@@ -36,17 +36,12 @@ WebOSService.prototype.uninstall = function() {
 };
 
 WebOSService.prototype.testScreensaver = function() {
-    var self = this;
-    // App must not be in the foreground — navigate home first, then trigger screensaver
-    return self.luna("luna://com.webos.applicationManager/launch", { id: "com.webos.app.home" })
-        .then(function() {
-            return new Promise(function(resolve, reject) {
-                setTimeout(function() {
-                    self.luna("luna://com.webos.service.tvpower/power/turnOnScreenSaver", {})
-                        .then(resolve).catch(reject);
-                }, 3000);
-            });
-        });
+    // Run entirely in hbchannel (root process) so it isn't affected by the app being suspended
+    return this.exec(
+        "luna-send -n 1 luna://com.webos.applicationManager/launch '{\"id\":\"com.webos.app.home\"}'" +
+        " && sleep 3" +
+        " && luna-send -n 1 luna://com.webos.service.tvpower/power/turnOnScreenSaver '{}'"
+    );
 };
 
 WebOSService.prototype.downloadAndApply = function(gifUrl) {

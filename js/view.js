@@ -1,6 +1,7 @@
 // View — all DOM rendering and TV remote navigation
 
 function View() {
+    var self = this;
     this._callbacks    = {};
     this._focusables   = [];
     this._focusIdx     = 0;
@@ -8,6 +9,18 @@ function View() {
     this._nUrlItems    = 2; // url input + download btn
     this._nActionItems = 2; // test + uninstall
     this._gridMode     = false; // true when showing 2×2 GIF grid
+
+    // Wire static button clicks — callbacks looked up at call time so ordering doesn't matter
+    document.getElementById("btn-download").addEventListener("click", function() {
+        var url = document.getElementById("url-input").value.trim();
+        if (self._callbacks.urlDownload) self._callbacks.urlDownload(url);
+    });
+    document.getElementById("btn-test").addEventListener("click", function() {
+        if (self._callbacks.test) self._callbacks.test();
+    });
+    document.getElementById("btn-uninstall").addEventListener("click", function() {
+        if (self._callbacks.uninstall) self._callbacks.uninstall();
+    });
 
     this._bindNavigation();
 }
@@ -206,23 +219,26 @@ View.prototype._bindNavigation = function() {
                 }
             }
         } else if (inGiphy) {
-            // Linear (API key prompt: input + save btn)
-            if (key === 37 && idx > 0) newIdx = idx - 1;
-            else if (key === 39 && idx < nG - 1) newIdx = idx + 1;
-            else if (key === 40) newIdx = uStart;
+            // Linear (API key prompt: input + save btn — stacked vertically)
+            if (key === 40) {
+                if (idx < nG - 1) newIdx = idx + 1;   // input → save btn
+                else newIdx = uStart;                   // save btn → URL input
+            }
+            else if (key === 38 && idx > 0) newIdx = idx - 1;  // save btn → input
         } else if (inUrl) {
             var uEnd = uStart + self._nUrlItems - 1;
-            if (key === 37 && idx > uStart) newIdx = idx - 1;
-            else if (key === 39 && idx < uEnd) newIdx = idx + 1;
-            else if (key === 40) newIdx = aStart;
+            if (key === 40) {
+                if (idx < uEnd) newIdx = idx + 1;      // URL input → download btn
+                else newIdx = aStart;                   // download btn → actions
+            }
             else if (key === 38) {
-                // up → bottom row of grid (card at row 1, col 0) or key prompt input
-                newIdx = self._gridMode ? Math.min(COLS, nG - 2) : 0;
+                if (idx > uStart) newIdx = idx - 1;    // download btn → URL input
+                else newIdx = self._gridMode ? Math.min(COLS, nG - 2) : nG - 1;  // URL input → bottom of GIPHY
             }
         } else if (inAction) {
             if (key === 37 && idx > aStart) newIdx = idx - 1;
             else if (key === 39 && idx < aEnd) newIdx = idx + 1;
-            else if (key === 38) newIdx = uStart;
+            else if (key === 38) newIdx = uStart + self._nUrlItems - 1;  // → download btn
         }
 
         self._focusIdx = newIdx;

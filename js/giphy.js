@@ -26,16 +26,14 @@ GiphyClient.prototype.saveApiKey = function(key) {
     localStorage.setItem("giphyApiKey", key.trim());
 };
 
-GiphyClient.prototype.fetchGifs = function() {
-    var key = this.getApiKey();
-    if (!key) return Promise.reject("No API key set");
-
+GiphyClient.prototype._fetch = function() {
+    var key    = this.getApiKey();
     var query  = QUERIES[Math.floor(Math.random() * QUERIES.length)];
     var offset = Math.floor(Math.random() * 40);
     var url    = "https://api.giphy.com/v1/gifs/search"
         + "?api_key=" + encodeURIComponent(key)
         + "&q="       + encodeURIComponent(query)
-        + "&limit=25&rating=g&offset=" + offset;
+        + "&limit=50&rating=g&offset=" + offset;
 
     return fetch(url)
         .then(function(r) {
@@ -45,13 +43,14 @@ GiphyClient.prototype.fetchGifs = function() {
         .then(function(data) {
             var results = [];
             for (var i = 0; i < data.data.length; i++) {
-                var g    = data.data[i];
-                var orig = g.images.original;
-                var w    = parseInt(orig.width  || 0);
-                var h    = parseInt(orig.height || 0);
-                var kb   = parseInt(orig.size   || 0) / 1024;
+                var g      = data.data[i];
+                var orig   = g.images.original;
+                var w      = parseInt(orig.width  || 0);
+                var h      = parseInt(orig.height || 0);
+                var kb     = parseInt(orig.size   || 0) / 1024;
                 var frames = parseInt(orig.frames || 0);
-                if (w < 400 || h > w || kb < 100 || frames < 10) continue;
+                // frames filter only applied when the field is present (not all GIPHY responses include it)
+                if (w < 400 || h > w || kb < 100 || (frames > 0 && frames < 10)) continue;
                 results.push({
                     id:         g.id,
                     title:      g.title,
@@ -65,4 +64,13 @@ GiphyClient.prototype.fetchGifs = function() {
             }
             return results;
         });
+};
+
+GiphyClient.prototype.fetchGifs = function() {
+    if (!this.getApiKey()) return Promise.reject("No API key set");
+    var self = this;
+    // Retry once with a fresh query if the first attempt yields nothing after filtering
+    return self._fetch().then(function(gifs) {
+        return gifs.length ? gifs : self._fetch();
+    });
 };
