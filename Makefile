@@ -1,4 +1,4 @@
-APP_ID   = org.webosbrew.idlegif
+APP_ID   = org.oted.idlegif
 VERSION  = $(shell node -p "require('./appinfo.json').version")
 IPK      = $(APP_ID)_$(VERSION)_all.ipk
 DEVICE   = tv
@@ -18,11 +18,11 @@ install: package
 
 apply:
 	@echo "Applying screensaver override on '$(DEVICE)'..."
-	@ares-shell -d $(DEVICE) -r "sh /media/developer/apps/usr/palm/applications/org.webosbrew.idlegif/assets/install.sh"
+	@ares-shell -d $(DEVICE) -r "sh /media/developer/apps/usr/palm/applications/org.oted.idlegif/assets/install.sh"
 
 uninstall:
 	@echo "Removing screensaver override on '$(DEVICE)'..."
-	@ares-shell -d $(DEVICE) -r "sh /media/developer/apps/usr/palm/applications/org.webosbrew.idlegif/assets/uninstall.sh"
+	@ares-shell -d $(DEVICE) -r "sh /media/developer/apps/usr/palm/applications/org.oted.idlegif/assets/uninstall.sh"
 
 launch:
 	@echo "Launching $(APP_ID) on '$(DEVICE)'..."

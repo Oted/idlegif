@@ -30,11 +30,11 @@ jobs:
 
       - name: Generate manifest
         run: |
-          IPK="org.webosbrew.idlegif_${{ steps.version.outputs.version }}_all.ipk"
+          IPK="org.oted.idlegif_${{ steps.version.outputs.version }}_all.ipk"
           SHA256=$(sha256sum "$IPK" | cut -d' ' -f1)
-          cat > org.webosbrew.idlegif.manifest.json <<EOF
+          cat > org.oted.idlegif.manifest.json <<EOF
           {
-            "id": "org.webosbrew.idlegif",
+            "id": "org.oted.idlegif",
             "version": "${{ steps.version.outputs.version }}",
             "type": "web",
             "title": "Idlegif",
@@ -50,6 +50,6 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: |
-            org.webosbrew.idlegif_${{ steps.version.outputs.version }}_all.ipk
-            org.webosbrew.idlegif.manifest.json
+            org.oted.idlegif_${{ steps.version.outputs.version }}_all.ipk
+            org.oted.idlegif.manifest.json
           generate_release_notes: true
