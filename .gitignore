@@ -1,4 +1,5 @@
 *.ipk
+test/
 .env
 assets/screensaver.gif
 assets/screensaver.mp4

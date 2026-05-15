@@ -1,53 +1,116 @@
 // GiphyClient — model: API key storage and GIF search
 
 var QUERIES = [
-    // Cinemagraph — photo with single animated element, perfect screensaver format
-    "cinemagraph loop",
-    "cinemagraph nature loop",
+    // Cinemagraph
     "cinemagraph rain loop",
-    "cinemagraph forest loop",
-    "cinemagraph coffee steam loop",
-    "cinemagraph candle loop",
     "cinemagraph waterfall loop",
+    "cinemagraph ocean loop",
+    "cinemagraph mountains loop",
+    "cinemagraph forest loop",
+    "cinemagraph snow loop",
+    "cinemagraph lake loop",
+    "cinemagraph starry night loop",
+    "cinemagraph sunrise loop",
 
-    // Slow / ink / fluid — very slow, hypnotic
-    "ink water loop",
-    "slow motion water loop",
-    "lava lamp loop",
-    "sacred geometry loop",
-    "mandala loop",
-
-    // Nature / atmospheric
-    "ocean waves loop",
-    "slow motion rain loop",
-    "fog forest loop",
-    "snow falling night loop",
-    "waterfall loop",
-    "time lapse clouds loop",
-
-    // Space / cosmic
+    // Space & cosmic
+    "aurora borealis loop",
+    "comet stars loop",
     "nebula space loop",
     "galaxy stars loop",
-    "aurora borealis loop",
-    "northern lights loop",
+    "milky way stars loop",
     "planet earth loop",
+    "black hole animation loop",
 
-    // Underwater — jellyfish only, specific enough to stay on topic
-    "jellyfish loop",
-    "deep sea loop",
+    // Atmospheric nature
+    "ocean waves loop",
+    "fog forest loop",
+    "dark forest loop",
+    "aerial forest loop",
+    "storm clouds loop",
+    "desert dunes loop",
+    "mountain lake reflection loop",
+    "autumn leaves falling loop",
+    "rain on window loop",
+    "ice cave loop",
+    "bioluminescent ocean loop",
+    "coral reef loop",
+    "sacred geometry loop",
 
-    // Cozy / ambient
-    "fireplace loop",
-
-    // Scenic / atmospheric cityscapes (no concerts/people)
+    // Urban & aesthetic
+    "neon city rain loop",
+    "neon reflections loop",
+    "underground neon loop",
     "synthwave landscape loop",
-    "city skyline night loop",
+    "outrun aesthetic loop",
+    "vaporwave loop",
 
-    // Pixel art (kept — reliable quality)
-    "pixel art landscape night loop",
-    "pixel art space stars loop",
-    "pixel art campfire loop",
+    // Art
+    "impressionist landscape loop",
+    "animated painting loop",
+    "hand drawn animation loop",
+    "ink animation loop",
+    "watercolor nature loop",
+    "studio ghibli loop",
+    "anime scenery loop",
+
+    // Lo-fi
+    "lofi anime loop",
+    "lofi anime rain loop",
+    "lofi cozy loop",
+    "lofi cafe loop",
+    "lofi study room loop",
     "lofi pixel art loop",
+    "lofi city rain loop",
+    "lofi game loop",
+
+    // Pixel art — scenes & nature
+    "pixel art landscape night loop",
+    "pixel art autumn forest loop",
+    "pixel art waterfall loop",
+    "pixel art cherry blossom loop",
+    "pixel art sunset loop",
+    "pixel art thunderstorm loop",
+    "pixel art city night loop",
+    "pixel art underwater loop",
+    "pixel art rain loop",
+    "pixel art winter snow loop",
+    "pixel art lighthouse loop",
+    "pixel art mountain loop",
+    "pixel art space stars loop",
+
+    // Pixel art — gaming & cozy
+    "pixel art village loop",
+    "pixel art campfire loop",
+    "pixel art rpg loop",
+    "pixel art dungeon loop",
+    "pixel art tavern loop",
+
+    // Gaming & misc
+    "retro game loop",
+    "liminal space loop",
+];
+
+var DEFAULTS = [
+    {
+        id: "default1", title: "Built-in 1",
+        previewUrl: "https://raw.githubusercontent.com/Oted/idlegif/refs/heads/main/assets/default1.gif",
+        gifUrl:     "https://raw.githubusercontent.com/Oted/idlegif/refs/heads/main/assets/default1.gif",
+    },
+    {
+        id: "default2", title: "Built-in 2",
+        previewUrl: "https://raw.githubusercontent.com/Oted/idlegif/refs/heads/main/assets/default2.gif",
+        gifUrl:     "https://raw.githubusercontent.com/Oted/idlegif/refs/heads/main/assets/default2.gif",
+    },
+    {
+        id: "default3", title: "Built-in 3",
+        previewUrl: "https://raw.githubusercontent.com/Oted/idlegif/refs/heads/main/assets/default3.gif",
+        gifUrl:     "https://raw.githubusercontent.com/Oted/idlegif/refs/heads/main/assets/default3.gif",
+    },
+    {
+        id: "default4", title: "Built-in 4",
+        previewUrl: "https://raw.githubusercontent.com/Oted/idlegif/refs/heads/main/assets/default4.gif",
+        gifUrl:     "https://raw.githubusercontent.com/Oted/idlegif/refs/heads/main/assets/default4.gif",
+    },
 ];
 
 function GiphyClient() {}

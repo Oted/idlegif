@@ -1,8 +1,13 @@
 # Idlegif
 
-Replace the LG webOS screensaver with a looping GIF — browse pixel art and animations via GIPHY, or paste any direct GIF URL.
+<div align="center">
+<a href="https://github.com/Oted/idlegif/releases/latest"><img src="https://img.shields.io/github/v/release/Oted/idlegif?style=flat-square" alt="Latest release"/></a>
+<a href="https://github.com/Oted/idlegif/releases"><img src="https://img.shields.io/github/downloads/Oted/idlegif/total?style=flat-square" alt="Downloads"/></a>
+</div>
 
-Tested on **webOS 9.2.1**. Requires a rooted TV via [Homebrew Channel](https://github.com/webosbrew/webos-homebrew-channel).
+Replace the LG webOS screensaver with a looping GIF — browse pixel art and animations via GIPHY or paste any direct GIF URL.
+
+Requires a rooted TV via [Homebrew Channel](https://github.com/webosbrew/webos-homebrew-channel).
 
 > **Disclaimer:** Modifies a system screensaver file via bind-mount. Use at your own risk.
 
@@ -24,9 +29,9 @@ After installing, open the app and select a GIF. The screensaver activates autom
 
 ## Usage
 
-**First launch — no GIPHY key:** The URL bar at the bottom lets you paste link direct `.gif` link and download it immediately. No API key required.
+**First launch — no GIPHY key:** 4 selectable defaults, the URL bar at the bottom lets you input a `.gif` link and download it immediately. No API key required.
 
-**With a GIPHY API key:** Enter your key (free at [developers.giphy.com](https://developers.giphy.com)) to unlock the GIF browser — a grid of pixel-art and looping animations fetched from GIPHY. Hit **Refresh** for new options.
+**With a GIPHY API key:** Enter your key (free at [developers.giphy.com](https://developers.giphy.com)) to unlock the GIF browser, key is annoying to fill in but will be persisting in localstorage once properly put in.
 
 **Buttons:**
 - **Refresh** — fetch a new set of GIFs from GIPHY
@@ -39,17 +44,18 @@ After installing, open the app and select a GIF. The screensaver activates autom
 
 ## Compatibility
 
-| webOS version | Status |
-|---|---|
-| webOS 9.2.1 (2022 OLED) | Tested ✅ |
-| Other webOS 9.x | Likely works |
-| webOS other | Unknown — If a clock shows on your screensaver this likely works |
+| webOS version | Targets | Status |
+|---|---|---|
+| webOS 9.x | `Clock.qml` | ✅ Confirmed |
+| webOS 5.x – 8.x | `main.qml` | 🧪 Should work |
+| webOS 3.x / 4.x | — | ❌ Not supported |
+
 
 ---
 
 ## Building from source
 
-Requires [ares-cli](https://webostv.developer.lge.com/develop/tools/cli-installation) and Node 18.
+Requires [ares-cli](https://webostv.developer.lge.com/develop/tools/cli-installation) and Node 24.
 
 ```bash
 make update   # build, install to TV, apply bind-mount, launch
@@ -61,8 +67,8 @@ make clean    # remove .ipk artifacts
 
 ## Credits
 
-- [webosbrew/custom-screensaver](https://github.com/webosbrew/custom-screensaver) — bind-mount pattern
-- [GIPHY](https://giphy.com) — GIF API
+- [webosbrew/custom-screensaver](https://github.com/webosbrew/custom-screensaver)
+- [GIPHY](https://giphy.com)
 
 ## License
 

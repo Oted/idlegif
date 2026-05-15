@@ -17,6 +17,12 @@ App.prototype._wireCallbacks = function() {
         self.loadGifs();
     });
 
+    this.view.onApiKeyClear(function() {
+        self.giphy.saveApiKey("");
+        self.view.renderGiphyGrid(DEFAULTS, self._activeGifId, false);
+        self.view.setStatus("");
+    });
+
     this.view.onRefresh(function() {
         self.loadGifs();
     });
@@ -45,23 +51,22 @@ App.prototype._wireCallbacks = function() {
 };
 
 App.prototype.init = function() {
-    if (this.giphy.getApiKey()) {
-        this.view.renderGiphyGrid([], null);
+    var hasKey = !!this.giphy.getApiKey();
+    this.view.renderGiphyGrid(DEFAULTS, this._activeGifId, hasKey);
+    if (hasKey) {
         this.loadGifs();
-    } else {
-        this.view.renderApiKeyPrompt();
     }
 };
 
 App.prototype.loadGifs = function() {
     var self = this;
+    var hasKey = !!this.giphy.getApiKey();
     this.view.setStatus("Loading…");
-    this.view.renderGiphyGrid([], this._activeGifId);
     this.view.setLoading(true);
 
     this.giphy.fetchGifs()
         .then(function(gifs) {
-            self.view.renderGiphyGrid(gifs, self._activeGifId);
+            self.view.renderGiphyGrid(gifs, self._activeGifId, hasKey);
             self.view.setStatus(gifs.length ? "" : "No results — try refreshing.", gifs.length ? "" : "err");
         })
         .catch(function(err) { self.view.setStatus("Error: " + err, "err"); })
