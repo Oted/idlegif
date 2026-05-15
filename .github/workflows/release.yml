@@ -42,6 +42,7 @@ jobs:
             "iconUri": "https://github.com/Oted/idlegif/raw/main/idlegif.png",
             "sourceUrl": "https://github.com/Oted/idlegif",
             "ipkUrl": "https://github.com/Oted/idlegif/releases/download/${{ github.ref_name }}/${IPK}",
+            "rootRequired": true,
             "ipkHash": { "sha256": "${SHA256}" }
           }
           EOF
