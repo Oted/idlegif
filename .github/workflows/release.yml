@@ -22,7 +22,22 @@ jobs:
         run: npm install -g @webosose/ares-cli
 
       - name: Build IPK
-        run: ares-package .
+        run: |
+          ares-package . \
+            -e ".git" \
+            -e ".env" \
+            -e "*.ipk" \
+            -e "Makefile" \
+            -e "AGENTS.md" \
+            -e "store-description.md" \
+            -e "org.oted.idlegif.yml" \
+            -e "test" \
+            -e "default.gif" \
+            -e "default1.gif" \
+            -e "default2.gif" \
+            -e "default3.gif" \
+            -e "default4.gif" \
+            -e "default_download.gif"
 
       - name: Get version
         id: version
