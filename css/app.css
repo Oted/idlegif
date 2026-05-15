@@ -80,13 +80,16 @@ body {
   min-height: 240px;
 }
 
-/* ── API key prompt ── */
-.key-prompt {
+/* ── Key row (below grid — always visible) ── */
+.key-row {
   display: flex;
-  flex-direction: column;
+  align-items: center;
   gap: 12px;
+  margin-top: 16px;
 }
-.key-prompt input { width: 100%; }
+.key-row input { flex: 1; }
+.key-row.connected { color: #888; font-size: 0.9rem; }
+.key-row.connected .giphy-status { flex: 1; }
 
 /* ── URL section ── */
 #url-section {

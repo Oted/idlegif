@@ -9,7 +9,21 @@ all: update
 
 package:
 	@echo "Packaging $(APP_ID) v$(VERSION)..."
-	@ares-package .
+	@ares-package . \
+		-e ".git" \
+		-e ".env" \
+		-e "*.ipk" \
+		-e "Makefile" \
+		-e "AGENTS.md" \
+		-e "store-description.md" \
+		-e "org.oted.idlegif.yml" \
+		-e "test" \
+		-e "default.gif" \
+		-e "default1.gif" \
+		-e "default2.gif" \
+		-e "default3.gif" \
+		-e "default4.gif" \
+		-e "default_download.gif"
 	@echo "Built: $(IPK)"
 
 install: package
