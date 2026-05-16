@@ -92,23 +92,23 @@ var QUERIES = [
 
 var DEFAULTS = [
     {
-        id: "default1", title: "Built-in 1",
-        previewUrl: "https://raw.githubusercontent.com/Oted/idlegif/refs/heads/main/assets/default1.gif",
+        id: "default1", title: "Animation Loop GIF by braindead.gif",
+        previewUrl: "https://media1.giphy.com/media/bAUI9dzuSI5b6f0k0r/200.gif",
         gifUrl:     "https://raw.githubusercontent.com/Oted/idlegif/refs/heads/main/assets/default1.gif",
     },
     {
-        id: "default2", title: "Built-in 2",
-        previewUrl: "https://raw.githubusercontent.com/Oted/idlegif/refs/heads/main/assets/default2.gif",
+        id: "default2", title: "Art Love GIF by dualvoidanima",
+        previewUrl: "https://media1.giphy.com/media/xNW6gz6an1GJzz9pVs/200.gif",
         gifUrl:     "https://raw.githubusercontent.com/Oted/idlegif/refs/heads/main/assets/default2.gif",
     },
     {
-        id: "default3", title: "Built-in 3",
-        previewUrl: "https://raw.githubusercontent.com/Oted/idlegif/refs/heads/main/assets/default3.gif",
+        id: "default3", title: "Pixel Art GIF",
+        previewUrl: "https://media0.giphy.com/media/pVGsAWjzvXcZW4ZBTE/200.gif",
         gifUrl:     "https://raw.githubusercontent.com/Oted/idlegif/refs/heads/main/assets/default3.gif",
     },
     {
-        id: "default4", title: "Built-in 4",
-        previewUrl: "https://raw.githubusercontent.com/Oted/idlegif/refs/heads/main/assets/default4.gif",
+        id: "default4", title: "Relax GIF by Wegow",
+        previewUrl: "https://media4.giphy.com/media/XbJYBCi69nyVOffLIU/200.gif",
         gifUrl:     "https://raw.githubusercontent.com/Oted/idlegif/refs/heads/main/assets/default4.gif",
     },
 ];
