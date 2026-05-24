@@ -51,6 +51,12 @@ App.prototype._wireCallbacks = function() {
 };
 
 App.prototype.init = function() {
+    var rawParams = window.launchParams || (window.PalmSystem && window.PalmSystem.launchParams) || null;
+    var params = rawParams ? JSON.parse(rawParams) : {};
+    if (params.giphyApiKey) {
+        this.giphy.saveApiKey(params.giphyApiKey);
+    }
+
     var hasKey = !!this.giphy.getApiKey();
     this.view.renderGiphyGrid(DEFAULTS, this._activeGifId, hasKey);
     if (hasKey) {

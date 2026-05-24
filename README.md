@@ -31,7 +31,14 @@ After installing, open the app and select a GIF. The screensaver activates autom
 
 **First launch — no GIPHY key:** 4 selectable defaults, the URL bar at the bottom lets you input a `.gif` link and download it immediately. No API key required.
 
-**With a GIPHY API key:** Enter your key (free at [developers.giphy.com](https://developers.giphy.com)) to unlock the GIF browser, key is annoying to fill in but will be persisting in localstorage once properly put in.
+**With a GIPHY API key:** Enter your key (free at [developers.giphy.com](https://developers.giphy.com)) to unlock the GIF browser. The key is saved and persists across restarts.
+
+**With SSH access:** If your TV has SSH via Homebrew Channel, you can inject the key without typing it on the TV. Close the app first if it's already open, then run:
+
+```bash
+luna-send -n 1 luna://com.webos.service.applicationManager/launch \
+  '{"id":"org.oted.idlegif","params":{"giphyApiKey":"YOUR_KEY"}}'
+```
 
 **Buttons:**
 - **Refresh** — fetch a new set of GIFs from GIPHY
