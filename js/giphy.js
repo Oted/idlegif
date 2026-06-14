@@ -123,24 +123,27 @@ GiphyClient.prototype.saveApiKey = function(key) {
     localStorage.setItem("giphyApiKey", key.trim());
 };
 
-GiphyClient.prototype._fetch = function() {
+GiphyClient.prototype._fetch = function(query, offset) {
     var key    = this.getApiKey();
-    var query  = QUERIES[Math.floor(Math.random() * QUERIES.length)];
-    var offset = Math.floor(Math.random() * 100);
     var url    = "https://api.giphy.com/v1/gifs/search"
         + "?api_key=" + encodeURIComponent(key)
         + "&q="       + encodeURIComponent(query)
-        + "&limit=50&rating=g&offset=" + offset;
+        + "&limit=50&rating=pg-13&offset=" + offset;
 
-    return fetch(url)
+    // Abort a hung request so the UI doesn't stick on "Loading…" forever.
+    var ctrl  = (typeof AbortController !== "undefined") ? new AbortController() : null;
+    var timer = ctrl ? setTimeout(function() { ctrl.abort(); }, 10000) : null;
+
+    return fetch(url, ctrl ? { signal: ctrl.signal } : undefined)
         .then(function(r) {
             if (!r.ok) throw "GIPHY API error: " + r.status;
             return r.json();
         })
         .then(function(data) {
             var results = [];
-            for (var i = 0; i < data.data.length; i++) {
-                var g      = data.data[i];
+            var items   = data.data || [];
+            for (var i = 0; i < items.length; i++) {
+                var g      = items[i];
                 var orig   = g.images.original;
                 var w      = parseInt(orig.width  || 0);
                 var h      = parseInt(orig.height || 0);
@@ -160,14 +163,19 @@ GiphyClient.prototype._fetch = function() {
                 if (results.length >= 4) break;
             }
             return results;
-        });
+        })
+        .finally(function() { if (timer) clearTimeout(timer); });
 };
 
 GiphyClient.prototype.fetchGifs = function() {
     if (!this.getApiKey()) return Promise.reject("No API key set");
-    var self = this;
-    // Retry once with a fresh query if the first attempt yields nothing after filtering
-    return self._fetch().then(function(gifs) {
-        return gifs.length ? gifs : self._fetch();
+    var self   = this;
+    var query  = QUERIES[Math.floor(Math.random() * QUERIES.length)];
+    var offset = Math.floor(Math.random() * 100);
+    // A random offset can overshoot the result pool — GIPHY returns nothing past
+    // the available window. If so, fall back to offset 0 for the same query.
+    return self._fetch(query, offset).then(function(gifs) {
+        if (gifs.length || offset === 0) return gifs;
+        return self._fetch(query, 0);
     });
 };

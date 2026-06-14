@@ -52,7 +52,10 @@ App.prototype._wireCallbacks = function() {
 
 App.prototype.init = function() {
     var rawParams = window.launchParams || (window.PalmSystem && window.PalmSystem.launchParams) || null;
-    var params = rawParams ? JSON.parse(rawParams) : {};
+    var params = {};
+    if (rawParams) {
+        try { params = JSON.parse(rawParams); } catch (e) { params = {}; }
+    }
     if (params.giphyApiKey) {
         this.giphy.saveApiKey(params.giphyApiKey);
     }

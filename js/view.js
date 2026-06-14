@@ -167,11 +167,17 @@ View.prototype._rebuildFocusables = function(giphyItems, keyItems) {
     var btnUninstall = document.getElementById("btn-uninstall");
 
     keyItems = keyItems || [];
-    var prev = this._focusIdx;
+    // Preserve focus by element identity, not index. Persistent controls (Refresh,
+    // URL input, action buttons) keep focus across re-renders even when the number
+    // of GIF cards changes — so the cursor never jumps off Refresh when a fetch
+    // returns fewer cards. Cards are recreated each render, so focus that was on a
+    // card (now gone) falls back to the first card.
+    var prevEl = this._focusables[this._focusIdx];
     this._focusables  = giphyItems.concat(keyItems, [urlInput, btnDownload, btnTest, btnUninstall]);
     this._nGiphyItems = giphyItems.length;
     this._nKeyItems   = keyItems.length;
-    this._focusIdx    = prev < this._focusables.length ? prev : 0;
+    var idx = prevEl ? this._focusables.indexOf(prevEl) : -1;
+    this._focusIdx    = idx >= 0 ? idx : 0;
     this._focusables[this._focusIdx] && this._focusables[this._focusIdx].focus();
 };
 

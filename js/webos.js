@@ -45,6 +45,12 @@ WebOSService.prototype.testScreensaver = function() {
 };
 
 WebOSService.prototype.downloadAndApply = function(gifUrl) {
+    // The URL is interpolated into a root shell command (via hbchannel exec), so
+    // reject anything that isn't a plain http(s) URL or could break out of the
+    // double quotes: " ` $ \ and whitespace. Other chars are inert inside quotes.
+    if (typeof gifUrl !== "string" || !/^https?:\/\//i.test(gifUrl) || /["`$\\\s]/.test(gifUrl)) {
+        return Promise.reject("Invalid or unsafe URL");
+    }
     var dest = "/var/lib/webosbrew/idlegif/screensaver.gif";
     return this.exec('wget -q -O "' + dest + '" "' + gifUrl + '" && sh ' + APP_DIR + "/assets/install.sh");
 };
